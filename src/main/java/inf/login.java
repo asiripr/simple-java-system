@@ -4,6 +4,8 @@
  */
 package inf;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Asiri Pramodaya
@@ -27,16 +29,74 @@ public class login extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        unamebox = new javax.swing.JTextField();
+        loginbtn = new javax.swing.JButton();
+        pwordbox = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setText("Log In");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        jLabel2.setText("Username");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        jLabel3.setText("Password");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
+
+        unamebox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                unameboxActionPerformed(evt);
+            }
+        });
+        jPanel1.add(unamebox, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 140, -1));
+
+        loginbtn.setFont(new java.awt.Font("Roboto Medium", 1, 14)); // NOI18N
+        loginbtn.setText("Log In");
+        loginbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginbtnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(loginbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, -1, -1));
+        jPanel1.add(pwordbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 140, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
 
-        pack();
+        setSize(new java.awt.Dimension(414, 307));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void loginbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginbtnActionPerformed
+          String uname;
+          String pword;
+          
+          uname = unamebox.getText();
+          pword = pwordbox.getText();
+          
+          if(uname.equals("asiri") && pword.equals("1234")){
+              mainframe m1 = new mainframe();
+              m1.setVisible(true);
+              this.dispose();
+          }
+          else{
+              JOptionPane.showMessageDialog(null, "Username or password incorrect");
+          }
+    }//GEN-LAST:event_loginbtnActionPerformed
+
+    private void unameboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unameboxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_unameboxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -74,6 +134,12 @@ public class login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton loginbtn;
+    private javax.swing.JPasswordField pwordbox;
+    private javax.swing.JTextField unamebox;
     // End of variables declaration//GEN-END:variables
 }
