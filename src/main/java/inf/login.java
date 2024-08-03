@@ -75,8 +75,17 @@ public class login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginbtnActionPerformed
-        mainframe m1 = new mainframe();
-        m1.setVisible(true);
+          String uname;
+          String pword;
+          
+          uname = unamebox.getText();
+          pword = pwordbox.getText();
+          
+          if(uname.equals("asiri") && pword.equals("1234")){
+              mainframe m1 = new mainframe();
+              m1.setVisible(true);
+              this.dispose();
+          }
     }//GEN-LAST:event_loginbtnActionPerformed
 
     private void unameboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unameboxActionPerformed
