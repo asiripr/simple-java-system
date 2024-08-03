@@ -49,7 +49,8 @@ public class mainframe extends javax.swing.JFrame {
                 .addContainerGap(266, Short.MAX_VALUE))
         );
 
-        pack();
+        setSize(new java.awt.Dimension(414, 307));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
