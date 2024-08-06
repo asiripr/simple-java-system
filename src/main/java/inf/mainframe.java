@@ -4,17 +4,22 @@
  */
 package inf;
 
+import codes.DBconnect;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
 /**
  *
  * @author Asiri Pramodaya
  */
 public class mainframe extends javax.swing.JFrame {
 
-    /**
-     * Creates new form mainframe
-     */
+    Connection conn = null;
+    PreparedStatement pst = null;
+    
     public mainframe() {
         initComponents();
+        conn = DBconnect.connect();
     }
 
     /**
