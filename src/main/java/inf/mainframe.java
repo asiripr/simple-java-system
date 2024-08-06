@@ -1,8 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package inf;
+
+import codes.DBconnect;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.time.Clock;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -10,11 +16,12 @@ package inf;
  */
 public class mainframe extends javax.swing.JFrame {
 
-    /**
-     * Creates new form mainframe
-     */
+    Connection conn = null;
+    PreparedStatement pst = null;
+    
     public mainframe() {
         initComponents();
+        conn = DBconnect.connect();
     }
 
     /**
@@ -85,6 +92,11 @@ public class mainframe extends javax.swing.JFrame {
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         insertbtn.setText("Insert");
+        insertbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                insertbtnActionPerformed(evt);
+            }
+        });
         jPanel5.add(insertbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         updatebtn.setText("Update");
@@ -123,6 +135,24 @@ public class mainframe extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(678, 430));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void insertbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertbtnActionPerformed
+        String name;
+        int age;
+        int grade;
+        
+        name = namebox.getText();
+        age = Integer.parseInt(agebox.getText());
+        grade = Integer.parseInt(gradebox.getSelectedItem().toString());
+        
+        try {
+            String sql = "INSERT INTO students(sname,sage,sgrade) VALUES ('"+name+"','"+age+"','"+grade+"')";
+            pst = conn.prepareStatement(sql);
+            pst.execute();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_insertbtnActionPerformed
 
     /**
      * @param args the command line arguments
