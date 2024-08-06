@@ -4,6 +4,10 @@ package inf;
 import codes.DBconnect;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -139,6 +143,13 @@ public class mainframe extends javax.swing.JFrame {
         name = namebox.getText();
         age = Integer.parseInt(agebox.getText());
         grade = Integer.parseInt(gradebox.getSelectedItem().toString());
+        
+        try {
+            String sql = "INSER INTO students(sname,sage,sgrade) VALUES ('"+name+"','"+age+"','"+grade+"')";
+            pst = conn.prepareStatement(sql);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }//GEN-LAST:event_insertbtnActionPerformed
 
     /**
