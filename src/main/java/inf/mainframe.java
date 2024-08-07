@@ -4,11 +4,14 @@ package inf;
 import codes.DBconnect;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Clock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import net.proteanit.sql.DbUtils;
+
 
 /**
  *
@@ -18,10 +21,22 @@ public class mainframe extends javax.swing.JFrame {
 
     Connection conn = null;
     PreparedStatement pst = null;
+    ResultSet rs = null;
     
     public mainframe() {
         initComponents();
         conn = DBconnect.connect();
+    }
+    
+    public void tableload(){
+        try {
+            String sql = "SELECT id, sname, sage, sgrade FROM studentskk";
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            table1.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
     /**
@@ -149,6 +164,7 @@ public class mainframe extends javax.swing.JFrame {
             String sql = "INSERT INTO students(sname,sage,sgrade) VALUES ('"+name+"','"+age+"','"+grade+"')";
             pst = conn.prepareStatement(sql);
             pst.execute();
+            JOptionPane.showMessageDialog(null, "Successfully Inserted");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
