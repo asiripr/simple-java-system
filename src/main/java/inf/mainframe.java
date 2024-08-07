@@ -26,11 +26,12 @@ public class mainframe extends javax.swing.JFrame {
     public mainframe() {
         initComponents();
         conn = DBconnect.connect();
+        tableload();
     }
     
     public void tableload(){
         try {
-            String sql = "SELECT id, sname, sage, sgrade FROM studentskk";
+            String sql = "SELECT id, sname, sage, sgrade FROM students";
             pst = conn.prepareStatement(sql);
             rs = pst.executeQuery();
             table1.setModel(DbUtils.resultSetToTableModel(rs));
@@ -168,6 +169,7 @@ public class mainframe extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        tableload();
     }//GEN-LAST:event_insertbtnActionPerformed
 
     /**
