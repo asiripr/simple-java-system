@@ -53,7 +53,17 @@ public class mainframe extends javax.swing.JFrame {
         agebox.setText(age);
         gradebox.setSelectedItem(grade);
     }
-
+    public void search(){
+        String sch = searchbox.getText();
+        try {
+            String sql = "SELECT*FROM students WHERE sname LIKE '%"+sch+"%' OR id LIKE '%"+sch+"%'";
+            pst = conn.prepareStatement(sql);
+            rs=pst.executeQuery();
+            table1.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -97,6 +107,12 @@ public class mainframe extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(153, 204, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Search"));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        searchbox.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchboxKeyReleased(evt);
+            }
+        });
         jPanel3.add(searchbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 240, 40));
 
         jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 260, 70));
@@ -211,6 +227,11 @@ public class mainframe extends javax.swing.JFrame {
     private void table1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_table1KeyReleased
         tabledata();
     }//GEN-LAST:event_table1KeyReleased
+
+    private void searchboxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchboxKeyReleased
+        // TODO add your handling code here:
+        search();
+    }//GEN-LAST:event_searchboxKeyReleased
 
     /**
      * @param args the command line arguments
