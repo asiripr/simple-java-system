@@ -53,7 +53,17 @@ public class mainframe extends javax.swing.JFrame {
         agebox.setText(age);
         gradebox.setSelectedItem(grade);
     }
-
+    public void search(){
+        String sch = searchbox.getText();
+        try {
+            String sql = "SELECT*FROM student WHERE sname='"+sch+"'";
+            pst = conn.prepareStatement(sql);
+            rs=pst.executeQuery();
+            table1.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
