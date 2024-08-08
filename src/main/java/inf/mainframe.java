@@ -48,6 +48,7 @@ public class mainframe extends javax.swing.JFrame {
         String age = table1.getValueAt(r, 2).toString();
         String grade = table1.getValueAt(r, 3).toString();
         
+        idbox.setText(id);
         namebox.setText(name);
         agebox.setText(age);
         gradebox.setSelectedItem(grade);
@@ -79,6 +80,8 @@ public class mainframe extends javax.swing.JFrame {
         deletebtn = new javax.swing.JButton();
         clearbtn = new javax.swing.JButton();
         exitbtn = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        idbox = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table1 = new javax.swing.JTable();
 
@@ -115,7 +118,7 @@ public class mainframe extends javax.swing.JFrame {
         gradebox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", " " }));
         jPanel4.add(gradebox, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, -1, -1));
 
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 260, 130));
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 260, 130));
 
         jPanel5.setBackground(new java.awt.Color(255, 204, 153));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -140,7 +143,13 @@ public class mainframe extends javax.swing.JFrame {
         exitbtn.setText("Exit");
         jPanel5.add(exitbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, -1, -1));
 
-        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 260, 120));
+        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 260, 120));
+
+        jLabel4.setText("ID");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
+
+        idbox.setText("ID");
+        jPanel2.add(idbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, -1, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 430));
 
@@ -158,6 +167,11 @@ public class mainframe extends javax.swing.JFrame {
         table1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 table1MouseClicked(evt);
+            }
+        });
+        table1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                table1KeyReleased(evt);
             }
         });
         jScrollPane1.setViewportView(table1);
@@ -193,6 +207,10 @@ public class mainframe extends javax.swing.JFrame {
     private void table1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table1MouseClicked
         tabledata();
     }//GEN-LAST:event_table1MouseClicked
+
+    private void table1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_table1KeyReleased
+        tabledata();
+    }//GEN-LAST:event_table1KeyReleased
 
     /**
      * @param args the command line arguments
@@ -235,10 +253,12 @@ public class mainframe extends javax.swing.JFrame {
     private javax.swing.JButton deletebtn;
     private javax.swing.JButton exitbtn;
     private javax.swing.JComboBox<String> gradebox;
+    private javax.swing.JLabel idbox;
     private javax.swing.JButton insertbtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
