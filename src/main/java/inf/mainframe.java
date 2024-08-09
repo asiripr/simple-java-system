@@ -64,6 +64,21 @@ public class mainframe extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+    public void update(){
+        String id = idbox.getText();
+        String name = namebox.getText();
+        String age = agebox.getText();
+        String grade = gradebox.getSelectedItem().toString();
+        
+        try {
+            String sql = "UPDATE students SET sname='"+name+"', sage='"+age+"', sgrade='"+grade+"' WHERE id='"+id+"'";
+            pst = conn.prepareStatement(sql);
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "Updated");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Not able to update");
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -148,6 +163,11 @@ public class mainframe extends javax.swing.JFrame {
         jPanel5.add(insertbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         updatebtn.setText("Update");
+        updatebtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updatebtnActionPerformed(evt);
+            }
+        });
         jPanel5.add(updatebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, -1));
 
         deletebtn.setText("Delete");
@@ -232,6 +252,12 @@ public class mainframe extends javax.swing.JFrame {
         // TODO add your handling code here:
         search();
     }//GEN-LAST:event_searchboxKeyReleased
+
+    private void updatebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatebtnActionPerformed
+        // TODO add your handling code here:
+        update();
+        tableload();
+    }//GEN-LAST:event_updatebtnActionPerformed
 
     /**
      * @param args the command line arguments
