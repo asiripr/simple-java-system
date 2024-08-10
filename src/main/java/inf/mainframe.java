@@ -29,7 +29,7 @@ public class mainframe extends javax.swing.JFrame {
 
     public void tableload() {
         try {
-            String sql = "SELECT id, sname, sage, sgrade FROM students";
+            String sql = "SELECT id AS ID, sname AS NAME, sage AS AGE, sgrade AS GRADE FROM students";
             pst = conn.prepareStatement(sql);
             rs = pst.executeQuery();
             table1.setModel(DbUtils.resultSetToTableModel(rs));
@@ -240,7 +240,7 @@ public class mainframe extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 430));
 
-        setSize(new java.awt.Dimension(678, 430));
+        setSize(new java.awt.Dimension(662, 430));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
