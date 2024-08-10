@@ -1,4 +1,3 @@
-
 package inf;
 
 import codes.DBconnect;
@@ -12,7 +11,6 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
-
 /**
  *
  * @author Asiri Pramodaya
@@ -22,14 +20,14 @@ public class mainframe extends javax.swing.JFrame {
     Connection conn = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
-    
+
     public mainframe() {
         initComponents();
         conn = DBconnect.connect();
         tableload();
     }
-    
-    public void tableload(){
+
+    public void tableload() {
         try {
             String sql = "SELECT id, sname, sage, sgrade FROM students";
             pst = conn.prepareStatement(sql);
@@ -39,39 +37,41 @@ public class mainframe extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-    
-    public void tabledata(){
+
+    public void tabledata() {
         int r = table1.getSelectedRow();
-        
+
         String id = table1.getValueAt(r, 0).toString();
-        String name= table1.getValueAt(r, 1).toString();
+        String name = table1.getValueAt(r, 1).toString();
         String age = table1.getValueAt(r, 2).toString();
         String grade = table1.getValueAt(r, 3).toString();
-        
+
         idbox.setText(id);
         namebox.setText(name);
         agebox.setText(age);
         gradebox.setSelectedItem(grade);
     }
-    public void search(){
+
+    public void search() {
         String sch = searchbox.getText();
         try {
-            String sql = "SELECT*FROM students WHERE sname LIKE '%"+sch+"%' OR id LIKE '%"+sch+"%'";
+            String sql = "SELECT*FROM students WHERE sname LIKE '%" + sch + "%' OR id LIKE '%" + sch + "%'";
             pst = conn.prepareStatement(sql);
-            rs=pst.executeQuery();
+            rs = pst.executeQuery();
             table1.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-    public void update(){
+
+    public void update() {
         String id = idbox.getText();
         String name = namebox.getText();
         String age = agebox.getText();
         String grade = gradebox.getSelectedItem().toString();
-        
+
         try {
-            String sql = "UPDATE students SET sname='"+name+"', sage='"+age+"', sgrade='"+grade+"' WHERE id='"+id+"'";
+            String sql = "UPDATE students SET sname='" + name + "', sage='" + age + "', sgrade='" + grade + "' WHERE id='" + id + "'";
             pst = conn.prepareStatement(sql);
             pst.execute();
             JOptionPane.showMessageDialog(null, "Updated");
@@ -79,6 +79,15 @@ public class mainframe extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Not able to update");
         }
     }
+
+    public void clear() {
+        searchbox.setText("");
+        idbox.setText("ID");
+        namebox.setText("");
+        agebox.setText("");
+        gradebox.setSelectedItem(0);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -171,12 +180,27 @@ public class mainframe extends javax.swing.JFrame {
         jPanel5.add(updatebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, -1));
 
         deletebtn.setText("Delete");
+        deletebtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deletebtnActionPerformed(evt);
+            }
+        });
         jPanel5.add(deletebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
         clearbtn.setText("Clear");
+        clearbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearbtnActionPerformed(evt);
+            }
+        });
         jPanel5.add(clearbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, -1, -1));
 
         exitbtn.setText("Exit");
+        exitbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitbtnActionPerformed(evt);
+            }
+        });
         jPanel5.add(exitbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, -1, -1));
 
         jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 260, 120));
@@ -224,13 +248,13 @@ public class mainframe extends javax.swing.JFrame {
         String name;
         int age;
         int grade;
-        
+
         name = namebox.getText();
         age = Integer.parseInt(agebox.getText());
         grade = Integer.parseInt(gradebox.getSelectedItem().toString());
-        
+
         try {
-            String sql = "INSERT INTO students(sname,sage,sgrade) VALUES ('"+name+"','"+age+"','"+grade+"')";
+            String sql = "INSERT INTO students(sname,sage,sgrade) VALUES ('" + name + "','" + age + "','" + grade + "')";
             pst = conn.prepareStatement(sql);
             pst.execute();
             JOptionPane.showMessageDialog(null, "Successfully Inserted");
@@ -258,6 +282,31 @@ public class mainframe extends javax.swing.JFrame {
         update();
         tableload();
     }//GEN-LAST:event_updatebtnActionPerformed
+
+    private void deletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebtnActionPerformed
+        int check = JOptionPane.showConfirmDialog(null, "Do you want to delete this item?");
+        if (check == 0) {
+            try {
+                String id = idbox.getText();
+                String sql = "DELETE FROM students WHERE id='" + id + "'";
+                pst = conn.prepareStatement(sql);
+                pst.execute();
+                JOptionPane.showMessageDialog(null, "Deleted!");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error occured " + e);
+            }
+            tableload();
+            clear();
+        }
+    }//GEN-LAST:event_deletebtnActionPerformed
+
+    private void clearbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearbtnActionPerformed
+        clear();
+    }//GEN-LAST:event_clearbtnActionPerformed
+
+    private void exitbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitbtnActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_exitbtnActionPerformed
 
     /**
      * @param args the command line arguments
